@@ -1,0 +1,33 @@
+{
+  "name": "@meecode/eas-build-notifier",
+  "version": "0.0.5",
+  "description": "EAS build notifier tool",
+  "main": "index.js",
+  "bin": {
+    "eas-build-notifier": "index.js"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meecodebymariomurrent/eas-build-notifier.git"
+  },
+  "keywords": [
+    "eas",
+    "build",
+    "notifier",
+    "expo"
+  ],
+  "author": "MeeCode by Mario Murrent",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/meecodebymariomurrent/eas-build-notifier/issues"
+  },
+  "homepage": "https://github.com/meecodebymariomurrent/eas-build-notifier#readme",
+  "dependencies": {
+    "commander": "^9.1.0",
+    "conf": "^10.1.2",
+    "slimbot": "^5.1.0"
+  }
+}

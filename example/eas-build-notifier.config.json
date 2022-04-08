@@ -1,0 +1,11 @@
+{
+  "services": [
+    {
+      "name": "telegram",
+      "config": {
+        "token": "token",
+        "chatID": "chatID"
+      }
+    }
+  ]
+}
