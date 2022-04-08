@@ -4,8 +4,8 @@
   "scripts": {
     "start": "expo start",
     "eas-build-pre-install": "eas-build-notifier notify -m Starting to install dependencies -f eas-build-notifier.config.json",
-    "eas-build-post-install": "",
-    "eas-build-pre-upload-artifacts": ""
+    "eas-build-post-install": "eas-build-notifier notify -m Dependencies installed -f eas-build-notifier.config.json",
+    "eas-build-pre-upload-artifacts": "eas-build-notifier notify -m Starting to upload artifacts -f eas-build-notifier.config.json"
   },
 
   "dependencies": {
