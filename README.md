@@ -1,5 +1,26 @@
 # EAS Build Notifier
 
+Can be used to get notifications for the following npm scripts `eas-build-post-install` and `eas-build-pre-upload-artifacts` in combination with the Expo EAS build.
+
+If there is an `app.json` file present then this will also be used to get more information.
+
+## Configuration File
+
+```json
+{
+  "services": [
+    {
+      "name": "telegram",
+      "config": {
+        "token": "token",
+        "chatID": "chatID",
+        "appFullName": "@test/testApp"
+      }
+    }
+  ]
+}
+```
+
 ## Supported platforms
 
 - [x] Telegram

@@ -1,6 +1,6 @@
 {
   "name": "@meecode/eas-build-notifier",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "EAS build notifier tool",
   "main": "index.js",
   "bin": {
@@ -28,6 +28,8 @@
   "dependencies": {
     "commander": "^9.1.0",
     "conf": "^10.1.2",
+    "discord-webhook-node": "^1.1.8",
+    "slack-notify": "^2.0.2",
     "slimbot": "^5.1.0"
   }
 }

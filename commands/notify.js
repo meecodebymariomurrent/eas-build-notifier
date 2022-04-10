@@ -1,4 +1,5 @@
 const fs = require('fs');
+
 const sendTelegramMessage = require('../services/telegram');
 
 const availableServices = ['telegram'];
@@ -6,19 +7,25 @@ const availableServices = ['telegram'];
 function notify({file, message}) {
     if (file) {
         notifyFromFile(file, message);
+    }else{
+        console.info('No configuration file specified');
     }
 }
 
 function notifyFromFile(file, message) {
     try {
-        const data = JSON.parse(fs.readFileSync(file, 'utf-8'));
-        if (data) {
-            data.services.forEach((service) => {
-                notifyForService(service, message);
-            });
+        if (fs.existsSync(file)) {
+            const data = JSON.parse(fs.readFileSync(file, 'utf-8'));
+            if (data) {
+                data.services.forEach((service) => {
+                    notifyForService(service, message);
+                });
+            }
+        } else {
+            console.error(`${file} does not exist`);
         }
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
