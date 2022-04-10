@@ -12,22 +12,22 @@ function sendTelegramMessage(serviceConfiguration, message) {
     let appName = process.env.npm_package_name;
     let appVersion = process.env.npm_package_version;
     let buildLink = null;
-    if(appInfo && appInfo.expo && appInfo.expo.name){
+    if (appInfo && appInfo.expo && appInfo.expo.name) {
         appName = appInfo.expo.name;
     }
-    if(appInfo && appInfo.expo && appInfo.expo.version){
+    if (appInfo && appInfo.expo && appInfo.expo.version) {
         appVersion = appInfo.expo.version;
     }
-    if(appFullName){
-        buildLink = `Build Details: https://expo.dev/accounts/${appInfo.currentFullName}/${easBuildId}`
+    if (appFullName && easBuildId) {
+        buildLink = `Build Details: https://expo.dev/accounts/${appFullName}/${easBuildId}`
     }
 
     const firstLine = `Build for ${appName} ${appVersion}`.trim();
     const secondLine = `EAS Build Id: ${easBuildId}`.trim();
     const thirdLine = `EAS Build Profile: ${easBuildProfile}`.trim();
     let textString = `<b>${firstLine}</b>\r\n\r\n${secondLine}\r\n${thirdLine}\r\n\r\n${message ?? ''}`.trim();
-    if(buildLink){
-        textString += `\r\n\r\n<a href='${buildLink}'>Build Details</a>`
+    if (buildLink) {
+        textString += `\r\n\r\n${buildLink}`;
     }
 
     const optionalParams = {

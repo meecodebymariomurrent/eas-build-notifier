@@ -4,6 +4,10 @@ Can be used to get notifications for the following npm scripts `eas-build-post-i
 
 If there is an `app.json` file present then this will also be used to get more information.
 
+## Installing
+
+`npm install eas-build-notifier --save-dev`
+
 ## Configuration File
 
 ```json
@@ -25,11 +29,7 @@ If there is an `app.json` file present then this will also be used to get more i
 
 - [x] Telegram
 
-## Installing
-
-`npm install eas-build-notifier --save-dev`
-
-## Telegram
+## Telegram Prerequisites
 
 ### Retrieve chatId
 
@@ -47,3 +47,7 @@ See [example](example) folder.
 - [ ] Slack
 - [ ] Teams
 - [ ] Discord
+
+## License
+
+[MIT](LICENSE.md)
