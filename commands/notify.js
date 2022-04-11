@@ -1,13 +1,14 @@
 const fs = require('fs');
+const sendMessageToTelegram = require('../services/telegram');
+const sendMessageToSlack = require('../services/slack');
+const sendMessageToDiscord = require('../services/discord');
 
-const sendTelegramMessage = require('../services/telegram');
-
-const availableServices = ['telegram'];
+const availableServices = ['telegram', 'slack', 'discord'];
 
 function notify({file, message}) {
     if (file) {
         notifyFromFile(file, message);
-    }else{
+    } else {
         console.info('No configuration file specified');
     }
 }
@@ -33,7 +34,13 @@ function notifyForService(service, message) {
     if (isSupportedService(service.name)) {
         const serviceConfiguration = service.config;
         if (service.name === 'telegram') {
-            sendTelegramMessage(serviceConfiguration, message);
+            sendMessageToTelegram(serviceConfiguration, message);
+        }
+        if (service.name === 'slack') {
+            sendMessageToSlack(serviceConfiguration, message);
+        }
+        if (service.name === 'discord') {
+            sendMessageToDiscord(serviceConfiguration, message);
         }
     }
 }

@@ -1,41 +1,26 @@
 const Slimbot = require('slimbot');
-const getAppInfo = require('../info/appInfo');
+const createDefaultMessage = require('../messages/defaultMessage');
 
-function sendTelegramMessage(serviceConfiguration, message) {
-    const easBuildId = process.env.EAS_BUILD_ID ?? '';
-    const easBuildProfile = process.env.EAS_BUILD_PROFILE ?? '';
-    const token = serviceConfiguration.token;
-    const bot = new Slimbot(token);
-    const chatID = serviceConfiguration.chatID;
-    const appFullName = serviceConfiguration.appFullName ?? null;
-    const appInfo = getAppInfo();
-    let appName = process.env.npm_package_name;
-    let appVersion = process.env.npm_package_version;
-    let buildLink = null;
-    if (appInfo && appInfo.expo && appInfo.expo.name) {
-        appName = appInfo.expo.name;
-    }
-    if (appInfo && appInfo.expo && appInfo.expo.version) {
-        appVersion = appInfo.expo.version;
-    }
-    if (appFullName && easBuildId) {
-        buildLink = `Build Details: https://expo.dev/accounts/${appFullName}/${easBuildId}`
-    }
+function sendMessageToTelegram(serviceConfiguration, message) {
+    if (isValidConfiguration(serviceConfiguration)) {
+        const token = serviceConfiguration.token;
+        const bot = new Slimbot(token);
+        const chatID = serviceConfiguration.chatID;
+        const textString = createDefaultMessage(serviceConfiguration, message, true);
 
-    const firstLine = `Build for ${appName} ${appVersion}`.trim();
-    const secondLine = `EAS Build Id: ${easBuildId}`.trim();
-    const thirdLine = `EAS Build Profile: ${easBuildProfile}`.trim();
-    let textString = `<b>${firstLine}</b>\r\n\r\n${secondLine}\r\n${thirdLine}\r\n\r\n${message ?? ''}`.trim();
-    if (buildLink) {
-        textString += `\r\n\r\n${buildLink}`;
-    }
+        const optionalParams = {
+            parse_mode: "HTML",
+            caption: 'Build Notification'
+        }
 
-    const optionalParams = {
-        parse_mode: "HTML",
-        caption: 'Build Notification'
+        bot.sendMessage(chatID, textString, optionalParams);
+    } else {
+        console.error('Invalid telegram service configuration');
     }
-
-    bot.sendMessage(chatID, textString, optionalParams);
 }
 
-module.exports = sendTelegramMessage;
+function isValidConfiguration(serviceConfiguration) {
+    return serviceConfiguration.token && serviceConfiguration.chatID;
+}
+
+module.exports = sendMessageToTelegram;

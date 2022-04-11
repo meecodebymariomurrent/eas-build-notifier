@@ -7,6 +7,18 @@
         "chatID": "chatID",
         "appFullName": "@test/testApp"
       }
+    },
+    {
+      "name": "slack",
+      "config": {
+        "webhookUrl": "webhookUrl"
+      }
+    },
+    {
+      "name": "discord",
+      "config": {
+        "webhookUrl": "webhookUrl"
+      }
     }
   ]
 }

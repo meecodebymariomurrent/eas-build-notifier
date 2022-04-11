@@ -10,6 +10,8 @@ If there is an `app.json` file present then this will also be used to get more i
 
 ## Configuration File
 
+The configuration file holds an array of services. Configure only the services you want to use.
+
 ```json
 {
   "services": [
@@ -20,6 +22,18 @@ If there is an `app.json` file present then this will also be used to get more i
         "chatID": "chatID",
         "appFullName": "@test/testApp"
       }
+    },
+    {
+      "name": "discord",
+      "config": {
+        "webhookUrl": "url"
+      }
+    },
+    {
+      "name": "slack",
+      "config": {
+        "webhookUrl": "url"
+      }
     }
   ]
 }
@@ -28,6 +42,8 @@ If there is an `app.json` file present then this will also be used to get more i
 ## Supported platforms
 
 - [x] Telegram
+- [x] Slack
+- [x] Discord
 
 ## Telegram Prerequisites
 
@@ -44,9 +60,10 @@ See [example](example) folder.
 
 ### Add support for the following services
 
-- [ ] Slack
+- [x] Slack
 - [ ] Teams
-- [ ] Discord
+- [x] Discord
+- [ ] Markdown support in addition to HTML support
 
 ## License
 
