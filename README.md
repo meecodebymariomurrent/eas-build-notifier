@@ -39,6 +39,10 @@ The configuration file holds an array of services. Configure only the services y
 }
 ```
 
+### Telegram Notification Example
+
+![Telegram Example](/assets/example_telegram.png)
+
 ## Supported platforms
 
 - [x] Telegram
