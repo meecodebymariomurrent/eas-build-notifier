@@ -34,6 +34,12 @@ The configuration file holds an array of services. Configure only the services y
       "config": {
         "webhookUrl": "url"
       }
+    },
+    {
+      "name": "teams",
+      "config": {
+        "webhookUrl": "url"
+      }
     }
   ]
 }
@@ -48,6 +54,7 @@ The configuration file holds an array of services. Configure only the services y
 - [x] Telegram
 - [x] Slack
 - [x] Discord
+- [x] Teams
 
 ## Telegram Prerequisites
 
@@ -55,6 +62,15 @@ The configuration file holds an array of services. Configure only the services y
 
 If you have the HTTP API Token use the following Link to get the chatId:
 https://codesandbox.io/s/get-telegram-chat-id-q3qkk
+
+## Slack
+
+Create a webhook URL
+
+## Teams
+
+Create a webhook URL:
+[See Documentation](https://docs.microsoft.com/en-us/microsoftteams/platform/webhooks-and-connectors/how-to/add-incoming-webhook)
 
 ## Example
 
@@ -65,9 +81,10 @@ See [example](example) folder.
 ### Add support for the following services
 
 - [x] Slack
-- [ ] Teams
+- [x] Teams
 - [x] Discord
 - [ ] Markdown support in addition to HTML support
+- [ ] Customizable messages
 
 ## License
 

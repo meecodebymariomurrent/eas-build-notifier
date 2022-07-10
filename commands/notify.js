@@ -2,8 +2,9 @@ const fs = require('fs');
 const sendMessageToTelegram = require('../services/telegram');
 const sendMessageToSlack = require('../services/slack');
 const sendMessageToDiscord = require('../services/discord');
+const sendMessageToTeams = require('../services/teams');
 
-const availableServices = ['telegram', 'slack', 'discord'];
+const availableServices = ['telegram', 'slack', 'discord', 'teams'];
 
 function notify({file, message}) {
     if (file) {
@@ -41,6 +42,9 @@ function notifyForService(service, message) {
         }
         if (service.name === 'discord') {
             sendMessageToDiscord(serviceConfiguration, message);
+        }
+        if(service.name === 'teams'){
+            sendMessageToTeams(serviceConfiguration, message);
         }
     }
 }

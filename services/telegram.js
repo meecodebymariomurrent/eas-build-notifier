@@ -3,17 +3,21 @@ const createDefaultMessage = require('../messages/defaultMessage');
 
 function sendMessageToTelegram(serviceConfiguration, message) {
     if (isValidConfiguration(serviceConfiguration)) {
-        const token = serviceConfiguration.token;
-        const bot = new Slimbot(token);
-        const chatID = serviceConfiguration.chatID;
-        const textString = createDefaultMessage(serviceConfiguration, message, true);
+        try {
 
-        const optionalParams = {
-            parse_mode: "HTML",
-            caption: 'Build Notification'
+            const token = serviceConfiguration.token;
+            const bot = new Slimbot(token);
+            const chatID = serviceConfiguration.chatID;
+            const textString = createDefaultMessage(serviceConfiguration, message, true);
+
+            const optionalParams = {
+                parse_mode: "HTML",
+                caption: 'Build Notification'
+            }
+            bot.sendMessage(chatID, textString, optionalParams);
+        } catch (error) {
+            console.error(error);
         }
-
-        bot.sendMessage(chatID, textString, optionalParams);
     } else {
         console.error('Invalid telegram service configuration');
     }

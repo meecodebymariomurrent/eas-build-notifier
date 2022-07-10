@@ -19,6 +19,12 @@
       "config": {
         "webhookUrl": "webhookUrl"
       }
+    },
+    {
+      "name": "teams",
+      "config": {
+        "webhookUrl": "webhookUrl"
+      }
     }
   ]
 }
