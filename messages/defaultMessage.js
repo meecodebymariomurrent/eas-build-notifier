@@ -3,7 +3,7 @@ const getAppInfo = require("../info/appInfo");
 function createDefaultMessage(serviceConfiguration, message, useHtmlCode = false){
     const easBuildId = process.env.EAS_BUILD_ID ?? '';
     const easBuildProfile = process.env.EAS_BUILD_PROFILE ?? '';
-    const appFullName = serviceConfiguration.appFullName ?? null;
+    const easBuildUsername = process.env.EAS_BUILD_USERNAME ?? '';
     const appInfo = getAppInfo(process.env.PWD || '.');
     let appName = process.env.npm_package_name;
     let appVersion = process.env.npm_package_version;
@@ -14,8 +14,8 @@ function createDefaultMessage(serviceConfiguration, message, useHtmlCode = false
     if (appInfo && appInfo.version) {
         appVersion = appInfo.version;
     }
-    if (appFullName && easBuildId) {
-        buildLink = `Build Details: https://expo.dev/accounts/${appFullName}/${easBuildId}`
+    if (appInfo && appInfo.slug && easBuildUsername && easBuildId) {
+        buildLink = `Build Details: https://expo.dev/accounts/${easBuildUsername}/projects/${appInfo.slug}/builds/${easBuildId}`
     }
 
     const firstLine = `Build for ${appName} ${appVersion}`.trim();

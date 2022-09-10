@@ -19,8 +19,7 @@ The configuration file holds an array of services. Configure only the services y
       "name": "telegram",
       "config": {
         "token": "token",
-        "chatID": "chatID",
-        "appFullName": "@test/testApp"
+        "chatID": "chatID"
       }
     },
     {
