@@ -4,6 +4,7 @@ function createDefaultMessage(serviceConfiguration, message, useHtmlCode = false
     const easBuildId = process.env.EAS_BUILD_ID ?? '';
     const easBuildProfile = process.env.EAS_BUILD_PROFILE ?? '';
     const easBuildUsername = process.env.EAS_BUILD_USERNAME ?? '';
+    const easBuildPlatform = process.env.EAS_BUILD_PLATFORM ?? '';
     const appInfo = getAppInfo(process.env.PWD || '.');
     let appName = process.env.npm_package_name;
     let appVersion = process.env.npm_package_version;
@@ -21,7 +22,8 @@ function createDefaultMessage(serviceConfiguration, message, useHtmlCode = false
     const firstLine = `Build for ${appName} ${appVersion}`.trim();
     const secondLine = `EAS Build Id: ${easBuildId}`.trim();
     const thirdLine = `EAS Build Profile: ${easBuildProfile}`.trim();
-    let textString = `${useHtmlCode ? '<b>' : ''}${firstLine}${useHtmlCode ? '</b>' : ''}\r\n\r\n${secondLine}\r\n${thirdLine}\r\n\r\n${message ?? ''}`.trim();
+    const fourthLine = `EAS Build Platform: ${easBuildPlatform}`.trim();
+    let textString = `${useHtmlCode ? '<b>' : ''}${firstLine}${useHtmlCode ? '</b>' : ''}\r\n\r\n${secondLine}\r\n${thirdLine}\r\n${fourthLine}\r\n\r\n${message ?? ''}`.trim();
     if (buildLink) {
         textString += `\r\n\r\n${buildLink}`;
     }
