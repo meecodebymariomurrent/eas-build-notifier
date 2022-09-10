@@ -1,12 +1,16 @@
-const fs = require('fs');
-
-function getAppInfo() {
-    const fileName = 'app.json';
-    if (fs.existsSync(fileName)) {
-        return JSON.parse(fs.readFileSync(fileName, 'utf-8'));
-    } else {
-        console.error(fileName, ' not found');
-        return null;
+// Supports:
+// `app.config.ts`
+// `app.config.js`
+// `app.config.json`
+// `app.json`
+function getAppInfo(projectRoot = '.') {
+    try {
+        const { getConfig } = require('@expo/config');
+        const { exp } = getConfig(projectRoot);
+        return exp;
+    }
+    catch (err) {
+        console.error(err);
     }
 }
 
