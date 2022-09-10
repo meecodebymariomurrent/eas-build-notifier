@@ -32,5 +32,11 @@
     "ms-teams-webhook": "^1.0.4",
     "slack-notify": "^2.0.2",
     "slimbot": "^5.1.0"
+  },
+  "devDependencies": {
+    "@expo/config": "^7.0.1"
+  },
+  "peerDependencies": {
+    "@expo/config": "*"
   }
 }

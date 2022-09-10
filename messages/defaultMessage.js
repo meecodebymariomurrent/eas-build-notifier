@@ -4,15 +4,15 @@ function createDefaultMessage(serviceConfiguration, message, useHtmlCode = false
     const easBuildId = process.env.EAS_BUILD_ID ?? '';
     const easBuildProfile = process.env.EAS_BUILD_PROFILE ?? '';
     const appFullName = serviceConfiguration.appFullName ?? null;
-    const appInfo = getAppInfo();
+    const appInfo = getAppInfo(process.env.PWD || '.');
     let appName = process.env.npm_package_name;
     let appVersion = process.env.npm_package_version;
     let buildLink = null;
-    if (appInfo && appInfo.expo && appInfo.expo.name) {
-        appName = appInfo.expo.name;
+    if (appInfo && appInfo.name) {
+        appName = appInfo.name;
     }
-    if (appInfo && appInfo.expo && appInfo.expo.version) {
-        appVersion = appInfo.expo.version;
+    if (appInfo && appInfo.version) {
+        appVersion = appInfo.version;
     }
     if (appFullName && easBuildId) {
         buildLink = `Build Details: https://expo.dev/accounts/${appFullName}/${easBuildId}`
