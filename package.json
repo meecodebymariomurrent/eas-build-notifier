@@ -1,6 +1,6 @@
 {
   "name": "@meecode/eas-build-notifier",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "EAS build notifier tool",
   "main": "index.js",
   "bin": {
