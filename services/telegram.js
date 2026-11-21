@@ -1,25 +1,16 @@
-const Slimbot = require('slimbot');
 const createDefaultMessage = require('../messages/defaultMessage');
+const {postJson} = require('./http');
 
-function sendMessageToTelegram(serviceConfiguration, message) {
+async function sendMessageToTelegram(serviceConfiguration, message) {
     if (isValidConfiguration(serviceConfiguration)) {
-        try {
-
-            const token = serviceConfiguration.token;
-            const bot = new Slimbot(token);
-            const chatID = serviceConfiguration.chatID;
-            const textString = createDefaultMessage(serviceConfiguration, message, true);
-
-            const optionalParams = {
-                parse_mode: "HTML",
-                caption: 'Build Notification'
-            }
-            bot.sendMessage(chatID, textString, optionalParams);
-        } catch (error) {
-            console.error(error);
-        }
+        const textString = createDefaultMessage(serviceConfiguration, message, true);
+        await postJson(`https://api.telegram.org/bot${serviceConfiguration.token}/sendMessage`, {
+            chat_id: serviceConfiguration.chatID,
+            text: textString,
+            parse_mode: 'HTML',
+        });
     } else {
-        console.error('Invalid telegram service configuration');
+        throw new Error('Invalid telegram service configuration');
     }
 }
 

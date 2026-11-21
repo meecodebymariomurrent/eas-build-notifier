@@ -1,29 +1,20 @@
-const SlackNotify = require('slack-notify');
 const createDefaultMessage = require("../messages/defaultMessage");
+const {postJson} = require('./http');
 
-function sendMessageToSlack(serviceConfiguration, message) {
+async function sendMessageToSlack(serviceConfiguration, message) {
     if (serviceConfiguration.webhookUrl) {
-        try {
-            const slack = SlackNotify(serviceConfiguration.webhookUrl);
-            const textString = createDefaultMessage(serviceConfiguration, message, true);
-            slack.send(
-                {
-                    "blocks": [
-                        {
-                            "type": "section",
-                            "text": {
-                                "type": "mrkdwn",
-                                "text": textString,
-                            },
-                        }
-                    ]
-                }
-            );
-        } catch (error) {
-            console.error(error);
-        }
+        const textString = createDefaultMessage(serviceConfiguration, message, false);
+        await postJson(serviceConfiguration.webhookUrl, {
+            blocks: [{
+                type: 'section',
+                text: {
+                    type: 'mrkdwn',
+                    text: textString.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'),
+                },
+            }],
+        });
     } else {
-        console.error('Invalid slack service configuration');
+        throw new Error('Invalid slack service configuration');
     }
 }
 

@@ -9,6 +9,8 @@ program
     .command('notify')
     .option('-m, --message <message>', 'The message to use')
     .option('-f, --file <file>', 'The configuration file to use')
-    .action(notify);
+    .action(async (options) => {
+        await notify(options);
+    });
 
-program.parse();
+program.parseAsync();

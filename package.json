@@ -1,13 +1,25 @@
 {
   "name": "@meecode/eas-build-notifier",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "description": "EAS build notifier tool",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "commands",
+    "services",
+    "messages",
+    "info",
+    "example",
+    "assets",
+    "README.md",
+    "LICENSE.md"
+  ],
   "bin": {
     "eas-build-notifier": "index.js"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "node --test"
   },
   "repository": {
     "type": "git",
@@ -25,18 +37,11 @@
     "url": "https://github.com/meecodebymariomurrent/eas-build-notifier/issues"
   },
   "homepage": "https://github.com/meecodebymariomurrent/eas-build-notifier#readme",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "dependencies": {
-    "commander": "^9.1.0",
-    "conf": "^10.1.2",
-    "discord-webhook-node": "^1.1.8",
-    "ms-teams-webhook": "^1.0.4",
-    "slack-notify": "^2.0.2",
-    "slimbot": "^5.1.0"
-  },
-  "devDependencies": {
-    "@expo/config": "^7.0.1"
-  },
-  "peerDependencies": {
-    "@expo/config": "*"
+    "@expo/config": "^58.0.12",
+    "commander": "^15.1.0"
   }
 }

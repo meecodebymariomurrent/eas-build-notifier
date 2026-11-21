@@ -6,7 +6,7 @@ If there is an `app.json` file present then this will also be used to get more i
 
 ## Installing
 
-`npm install eas-build-notifier --save-dev`
+`npm install @meecode/eas-build-notifier --save-dev`
 
 ## Configuration File
 
