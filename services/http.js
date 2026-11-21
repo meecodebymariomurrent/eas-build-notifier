@@ -13,6 +13,7 @@ async function postJson(url, body, timeoutMs = 10000) {
             const responseBody = await response.text();
             throw new Error(`Notification request failed (${response.status} ${response.statusText})${responseBody ? `: ${responseBody}` : ''}`);
         }
+        await response.arrayBuffer();
         return response;
     } finally {
         clearTimeout(timeout);
