@@ -7,7 +7,9 @@ function getAppInfo(projectRoot = '.') {
     const fs = require('fs');
     const path = require('path');
 
-    for (const fileName of ['app.config.json', 'app.json']) {
+    const hasDynamicConfig = ['app.config.ts', 'app.config.js']
+        .some(fileName => fs.existsSync(path.join(projectRoot, fileName)));
+    for (const fileName of hasDynamicConfig ? [] : ['app.config.json', 'app.json']) {
         const filePath = path.join(projectRoot, fileName);
         if (fs.existsSync(filePath)) {
             try {
