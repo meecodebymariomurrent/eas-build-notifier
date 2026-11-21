@@ -7,6 +7,8 @@ function getAppInfo(projectRoot = '.') {
     const fs = require('fs');
     const path = require('path');
 
+    const hasDynamicConfig = ['app.config.ts', 'app.config.js']
+        .some(fileName => fs.existsSync(path.join(projectRoot, fileName)));
     try {
         const { getConfig } = require('@expo/config');
         const { exp } = getConfig(projectRoot);
@@ -14,6 +16,10 @@ function getAppInfo(projectRoot = '.') {
             return exp;
         }
     } catch {
+    }
+
+    if (hasDynamicConfig) {
+        return null;
     }
 
     for (const fileName of ['app.config.json', 'app.json']) {

@@ -23,12 +23,13 @@ function createDefaultMessage(serviceConfiguration, message, useHtmlCode = false
     const secondLine = `EAS Build Id: ${easBuildId}`.trim();
     const thirdLine = `EAS Build Profile: ${easBuildProfile}`.trim();
     const fourthLine = `EAS Build Platform: ${easBuildPlatform}`.trim();
-    const formatLine = (line) => useHtmlCode
-        ? String(line).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
-        : line;
-    let textString = `${useHtmlCode ? '<b>' : ''}${formatLine(firstLine)}${useHtmlCode ? '</b>' : ''}\r\n\r\n${formatLine(secondLine)}\r\n${formatLine(thirdLine)}\r\n${formatLine(fourthLine)}\r\n\r\n${formatLine(message ?? '')}`.trim();
+    const details = `${secondLine}\r\n${thirdLine}\r\n${fourthLine}\r\n\r\n${message ?? ''}`;
+    const escapeHtml = (text) => String(text).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    let textString = useHtmlCode
+        ? `<b>${escapeHtml(firstLine)}</b>\r\n\r\n${escapeHtml(details)}`.trim()
+        : `${firstLine}\r\n\r\n${details}`.trim();
     if (buildLink) {
-        textString += `\r\n\r\n${formatLine(buildLink)}`;
+        textString += `\r\n\r\n${useHtmlCode ? escapeHtml(buildLink) : buildLink}`;
     }
     return textString.trim();
 }
