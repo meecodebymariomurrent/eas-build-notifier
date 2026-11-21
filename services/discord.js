@@ -1,22 +1,18 @@
-const {Webhook, MessageBuilder} = require("discord-webhook-node");
 const createDefaultMessage = require("../messages/defaultMessage");
+const {postJson} = require('./http');
 
-function sendMessageToDiscord(serviceConfiguration, message) {
+async function sendMessageToDiscord(serviceConfiguration, message) {
     if (serviceConfiguration.webhookUrl) {
-        try {
-            const hook = new Webhook(serviceConfiguration.webhookUrl);
-            const textString = createDefaultMessage(serviceConfiguration, message);
-            const discordMessage = new MessageBuilder()
-                .setTitle("EAS Build Status")
-                .setDescription(textString)
-                .setTimestamp();
-
-            hook.send(discordMessage);
-        } catch (error) {
-            console.error(error);
-        }
+        const textString = createDefaultMessage(serviceConfiguration, message);
+        await postJson(serviceConfiguration.webhookUrl, {
+            embeds: [{
+                title: 'EAS Build Status',
+                description: textString,
+                timestamp: new Date().toISOString(),
+            }],
+        });
     } else {
-        console.error("Invalid discord service configuration");
+        throw new Error("Invalid discord service configuration");
     }
 }
 

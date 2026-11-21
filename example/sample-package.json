@@ -3,15 +3,15 @@
   "version": "1.0.0",
   "scripts": {
     "start": "expo start",
-    "eas-build-post-install": "eas-build-notifier notify -m Dependencies installed -f eas-build-notifier.config.json",
-    "eas-build-pre-upload-artifacts": "eas-build-notifier notify -m Starting to upload artifacts -f eas-build-notifier.config.json"
+    "eas-build-post-install": "eas-build-notifier notify -m \"Dependencies installed\" -f eas-build-notifier.config.json",
+    "eas-build-pre-upload-artifacts": "eas-build-notifier notify -m \"Starting to upload artifacts\" -f eas-build-notifier.config.json"
   },
 
   "dependencies": {
     "expo": "~44.0.6"
   },
   "devDependencies": {
-    "@meecode/eas-build-notifier": "0.0.4"
+    "@meecode/eas-build-notifier": "0.0.15"
   },
   "private": true
 }

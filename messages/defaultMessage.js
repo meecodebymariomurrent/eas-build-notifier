@@ -24,6 +24,14 @@ function createDefaultMessage(serviceConfiguration, message, useHtmlCode = false
     const thirdLine = `EAS Build Profile: ${easBuildProfile}`.trim();
     const fourthLine = `EAS Build Platform: ${easBuildPlatform}`.trim();
     let textString = `${useHtmlCode ? '<b>' : ''}${firstLine}${useHtmlCode ? '</b>' : ''}\r\n\r\n${secondLine}\r\n${thirdLine}\r\n${fourthLine}\r\n\r\n${message ?? ''}`.trim();
+    if (useHtmlCode) {
+        textString = textString
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace('&lt;b&gt;', '<b>')
+            .replace('&lt;/b&gt;', '</b>');
+    }
     if (buildLink) {
         textString += `\r\n\r\n${buildLink}`;
     }
