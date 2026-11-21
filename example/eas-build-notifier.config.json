@@ -3,27 +3,36 @@
     {
       "name": "telegram",
       "config": {
-        "token": "token",
-        "chatID": "chatID",
-        "appFullName": "@test/testApp"
+        "token": {
+          "env": "TELEGRAM_BOT_TOKEN"
+        },
+        "chatID": {
+          "env": "TELEGRAM_CHAT_ID"
+        }
       }
     },
     {
       "name": "slack",
       "config": {
-        "webhookUrl": "webhookUrl"
+        "webhookUrl": {
+          "env": "SLACK_WEBHOOK_URL"
+        }
       }
     },
     {
       "name": "discord",
       "config": {
-        "webhookUrl": "webhookUrl"
+        "webhookUrl": {
+          "env": "DISCORD_WEBHOOK_URL"
+        }
       }
     },
     {
       "name": "teams",
       "config": {
-        "webhookUrl": "webhookUrl"
+        "webhookUrl": {
+          "env": "TEAMS_WEBHOOK_URL"
+        }
       }
     }
   ]

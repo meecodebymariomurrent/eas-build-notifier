@@ -2,21 +2,27 @@ async function postJson(url, body, timeoutMs = 10000) {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), timeoutMs);
 
+    let response;
     try {
-        const response = await fetch(url, {
+        response = await fetch(url, {
             method: 'POST',
             headers: {'content-type': 'application/json'},
             body: JSON.stringify(body),
             signal: controller.signal,
+            redirect: 'error',
         });
-        if (!response.ok) {
-            const responseBody = await response.text();
-            throw new Error(`Notification request failed (${response.status} ${response.statusText})${responseBody ? `: ${responseBody}` : ''}`);
-        }
         await response.body?.cancel();
-        return response;
+    } catch {
+        if (controller.signal.aborted) {
+            throw new Error(`Notification request timed out after ${timeoutMs} ms`);
+        }
+        throw new Error('Notification request could not be completed');
     } finally {
         clearTimeout(timeout);
+    }
+
+    if (!response.ok) {
+        throw new Error(`Notification request failed (HTTP ${response.status})`);
     }
 }
 

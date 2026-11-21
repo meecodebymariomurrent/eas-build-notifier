@@ -1,17 +1,16 @@
 {
   "name": "example",
   "version": "1.0.0",
+  "private": true,
   "scripts": {
     "start": "expo start",
-    "eas-build-post-install": "eas-build-notifier notify -m \"Dependencies installed\" -f eas-build-notifier.config.json",
-    "eas-build-pre-upload-artifacts": "eas-build-notifier notify -m \"Starting to upload artifacts\" -f eas-build-notifier.config.json"
+    "eas-build-on-success": "eas-build-notifier notify --best-effort --file eas-build-notifier.config.json --message \"Build succeeded\"",
+    "eas-build-on-error": "eas-build-notifier notify --best-effort --file eas-build-notifier.config.json --message \"Build failed\""
   },
-
   "dependencies": {
-    "expo": "~44.0.6"
+    "expo": "~58.0.0"
   },
   "devDependencies": {
     "@meecode/eas-build-notifier": "0.0.15"
-  },
-  "private": true
+  }
 }

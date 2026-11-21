@@ -1,9 +1,9 @@
 const createDefaultMessage = require("../messages/defaultMessage");
 const {postJson} = require('./http');
 
-async function sendMessageToDiscord(serviceConfiguration, message) {
+async function sendMessageToDiscord(serviceConfiguration, message, appInfo) {
     if (serviceConfiguration.webhookUrl) {
-        const textString = createDefaultMessage(serviceConfiguration, message);
+        const textString = createDefaultMessage(appInfo, message);
         await postJson(serviceConfiguration.webhookUrl, {
             embeds: [{
                 title: 'EAS Build Status',

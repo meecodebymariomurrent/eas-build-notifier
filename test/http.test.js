@@ -10,7 +10,7 @@ test('postJson reports unsuccessful webhook responses', async () => {
 
     await assert.rejects(
         () => postJson('https://example.test/webhook', {text: 'test'}),
-        /400 Bad Request.*invalid webhook/,
+        {message: 'Notification request failed (HTTP 400)'},
     );
 });
 

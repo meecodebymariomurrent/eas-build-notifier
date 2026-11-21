@@ -1,9 +1,9 @@
 const createDefaultMessage = require("../messages/defaultMessage");
 const {postJson} = require('./http');
 
-async function sendMessageToTeams(serviceConfiguration, message) {
+async function sendMessageToTeams(serviceConfiguration, message, appInfo) {
     if (serviceConfiguration.webhookUrl) {
-        const textString = createDefaultMessage(serviceConfiguration, message, false);
+        const textString = createDefaultMessage(appInfo, message, false);
         await postJson(serviceConfiguration.webhookUrl, {
             type: 'message',
             attachments: [{

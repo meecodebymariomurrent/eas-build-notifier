@@ -3,7 +3,7 @@
 // `app.config.js`
 // `app.config.json`
 // `app.json`
-function getAppInfo(projectRoot = '.') {
+function getAppInfo(projectRoot = process.cwd(), onConfigError = () => {}) {
     const fs = require('fs');
     const path = require('path');
 
@@ -11,11 +11,12 @@ function getAppInfo(projectRoot = '.') {
         .some(fileName => fs.existsSync(path.join(projectRoot, fileName)));
     try {
         const { getConfig } = require('@expo/config');
-        const { exp } = getConfig(projectRoot);
+        const { exp } = getConfig(projectRoot, {skipSDKVersionRequirement: true, skipPlugins: true});
         if (exp) {
             return exp;
         }
     } catch {
+        if (hasDynamicConfig) onConfigError();
     }
 
     if (hasDynamicConfig) {
@@ -29,6 +30,7 @@ function getAppInfo(projectRoot = '.') {
                 const config = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
                 return config.expo || config;
             } catch {
+                onConfigError();
                 break;
             }
         }

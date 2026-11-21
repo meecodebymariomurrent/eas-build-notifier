@@ -19,7 +19,8 @@
   },
   "scripts": {
     "start": "node index.js",
-    "test": "node --test"
+    "test": "node --test",
+    "test:live": "node --test integration/live-webhooks.cjs"
   },
   "repository": {
     "type": "git",

@@ -9,8 +9,10 @@ program
     .command('notify')
     .option('-m, --message <message>', 'The message to use')
     .option('-f, --file <file>', 'The configuration file to use')
-    .action(async (options) => {
-        await notify(options);
-    });
+    .option('--best-effort', 'Log delivery failures and exit successfully')
+    .action(notify);
 
-program.parseAsync();
+program.parseAsync().catch(error => {
+    console.error(error.message);
+    process.exitCode = 1;
+});

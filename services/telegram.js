@@ -1,9 +1,9 @@
 const createDefaultMessage = require('../messages/defaultMessage');
 const {postJson} = require('./http');
 
-async function sendMessageToTelegram(serviceConfiguration, message) {
+async function sendMessageToTelegram(serviceConfiguration, message, appInfo) {
     if (isValidConfiguration(serviceConfiguration)) {
-        const textString = createDefaultMessage(serviceConfiguration, message, true);
+        const textString = createDefaultMessage(appInfo, message, true);
         await postJson(`https://api.telegram.org/bot${serviceConfiguration.token}/sendMessage`, {
             chat_id: serviceConfiguration.chatID,
             text: textString,
