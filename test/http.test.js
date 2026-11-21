@@ -13,3 +13,19 @@ test('postJson reports unsuccessful webhook responses', async () => {
         /400 Bad Request.*invalid webhook/,
     );
 });
+
+test('postJson cancels successful response bodies before clearing the timeout', async () => {
+    let bodyCancelled = false;
+    global.fetch = async () => {
+        const body = new ReadableStream({
+            cancel() {
+                bodyCancelled = true;
+            },
+        });
+        return new Response(body, {status: 200});
+    };
+
+    await postJson('https://example.test/webhook', {text: 'test'});
+
+    assert.equal(bodyCancelled, true);
+});

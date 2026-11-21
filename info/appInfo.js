@@ -7,25 +7,28 @@ function getAppInfo(projectRoot = '.') {
     const fs = require('fs');
     const path = require('path');
 
+    try {
+        const { getConfig } = require('@expo/config');
+        const { exp } = getConfig(projectRoot);
+        if (exp) {
+            return exp;
+        }
+    } catch {
+    }
+
     for (const fileName of ['app.config.json', 'app.json']) {
         const filePath = path.join(projectRoot, fileName);
         if (fs.existsSync(filePath)) {
             try {
-                return JSON.parse(fs.readFileSync(filePath, 'utf-8')).expo
-                    || JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+                const config = JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+                return config.expo || config;
             } catch {
                 break;
             }
         }
     }
 
-    try {
-        const { getConfig } = require('@expo/config');
-        const { exp } = getConfig(projectRoot);
-        return exp;
-    } catch {
-        return null;
-    }
+    return null;
 }
 
 module.exports = getAppInfo;
